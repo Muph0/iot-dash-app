@@ -1,0 +1,29 @@
+<div class="content-wrapper">
+
+  <article class="paper">
+    <section>
+      <h1>My devices</h1>
+      <table class="devices table">
+        <thead>
+          <tr>
+            <th class="hide-lt-700">ID</th>
+            <th>IP address</th>
+            <th class="hide-lt-800">Uptime</th>
+            <th>Type</th>
+            <th># of I/O</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let device of devices$ | async" (click)="goToDevice(device)">
+            <td class="mono hide-lt-700"> {{ device.id }} </td>
+            <td> {{ device.ipAddress }} </td>
+            <td class="hide-lt-800"> {{ device.uptimeSeconds ? device.uptimeSeconds + ' s' : '' }} </td>
+            <td> {{ describeDeviceType(device) }} </td>
+            <td class="text-right"> {{ device.interfaces?.length }} </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+</div>

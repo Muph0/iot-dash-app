@@ -1,0 +1,68 @@
+@import "../variables";
+
+/* Hlavicka */
+
+header {
+  line-height: $topnav-height;
+  height: $topnav-height;
+  background: linear-gradient(4deg, $primary, $primary-special);
+}
+#logo {
+  position: absolute;
+  display: block;
+
+  width: $sidenav-width;
+  height: inherit;
+  text-align: center;
+
+  color: white;
+  background-color: $topnav-glass;
+  font-weight: bold;
+  text-decoration: none;
+}
+header.main nav {
+  margin-left: $sidenav-width;
+
+  %nav-item {
+    height: $topnav-height;
+    line-height: inherit;
+    float: left;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    background-color: $topnav-glass;
+    padding: 0 20px;
+    font-size: 1rem;
+  }
+
+  .filler {
+    overflow: hidden;
+    background-color: $topnav-glass;
+    height: $topnav-height;
+  }
+
+  input {
+    @extend %nav-item;
+    border: none;
+    outline: none;
+    $height: $topnav-height / 2;
+    height: $height;
+    line-height: $height;
+    padding: 0 12px;
+    margin: $height / 2 15px;
+    border-radius: 25px;
+  }
+
+  a {
+    @extend %nav-item;
+
+    &:hover {
+      background-color: $topnav-glass-hover;
+    }
+
+    &.active {
+      background-color: $topnav-glass-active;
+      text-decoration: underline;
+      color: white;
+    }
+  }
+}

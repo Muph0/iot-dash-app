@@ -1,17 +1,24 @@
+//
+// Obecne
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-
-
-$primary: #10b890;
-
+$primary: #37d;
+$primary-special: rgb(86, 41, 194);
 $primary-active: darken($primary, 20%);
+
+$body-color: #eee;
+$body-font: ("Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif);
+
+$paper-padding: 30px;
+$paper-margin: 20px;
+
+// Hlavicka
+
+$topnav-height: 50px;
+$topnav-glass: rgba(255, 255, 255, 0.1);
+$topnav-glass-active: rgba(255, 255, 255, 0.0);
+$topnav-glass-hover: rgba(255, 255, 255, 0.2);
+
+// Menu na strane
+
+$sidenav-width: 250px;
+$sidenav-item-size: 50px;

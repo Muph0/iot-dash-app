@@ -1,1 +1,100 @@
-/* You can add global styles to this file, and also import other style files */
+@import "variables";
+
+/* Obecne */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: $body-font;
+  background-color: $body-color;
+  min-height: 100vh;
+}
+h1 {
+  margin-bottom: 14px;
+  font-size: 1.7rem;
+}
+h2 {
+  margin-bottom: 11px;
+  font-size: 1.3rem;
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.paper {
+  background-color: white;
+  padding: $paper-padding;
+  margin: $paper-margin;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin-left: $sidenav-width;
+}
+
+table.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td,
+  th {
+    padding: 4px 7px;
+    text-align: left;
+  }
+  th {
+    border-bottom: 1px solid #eee;
+  }
+  td {
+    border-top: 1px solid #eee;
+  }
+  tr:nth-of-type(2n + 1) td {
+    background-color: #eee;
+  }
+}
+
+// Util classes
+
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+
+// responsive stuff
+
+@for $i from 1 through 10 {
+  @media screen and (max-width: $i * 100px) {
+    .hide-lt-#{$i}00 {
+      display: none;
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+
+  .col-#{$i} {
+    width: $i / 12 * 100%;
+    display: inline-block;
+  }
+
+  @media screen and (min-width: 1000px) {
+    .col-#{$i}-lg {
+      width: $i / 12 * 100%;
+      display: inline-block;
+    }
+  }
+
+  @media screen and (min-width: 700px) {
+    .col-#{$i}-md {
+      width: $i / 12 * 100%;
+      display: inline-block;
+    }
+  }
+}

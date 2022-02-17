@@ -4,29 +4,46 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DeviceListComponent } from './pages/device-list/device-list.component';
-import { DeviceDetailComponent } from './pages/device-detail/device-detail.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { GraphComponent } from './components/graph/graph.component';
 import { ToggleComponent } from './components/toggle/toggle.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IIdentityService } from './services/identity.service';
+import { ApiV1IdentityService } from './services/implementation/api-v1-identity.service';
+import { LoginComponent } from './pages/login/login.component';
+import { UserDetailComponent } from './pages/user-detail/user-detail.component';
+import { InterfaceDetailComponent } from './components/interface-detail/interface-detail.component';
+import { InterfaceListComponent } from './pages/interface-list/interface-list.component';
+import { FormErrorListComponent } from './components/form-error-list/form-error-list.component';
+import { HistoryChartComponent } from './components/history-chart/history-chart.component';
+
+import 'chart.js/auto';
+import 'src/app/utils/chartjs-adapter-datefns';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    DeviceListComponent,
-    DeviceDetailComponent,
-    SidenavComponent,
-    GraphComponent,
-    ToggleComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        SidenavComponent,
+        ToggleComponent,
+        LoginComponent,
+        UserDetailComponent,
+        InterfaceDetailComponent,
+        InterfaceListComponent,
+        InterfaceDetailComponent,
+        FormErrorListComponent,
+        HistoryChartComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+    ],
+    providers: [
+        { provide: IIdentityService, useClass: ApiV1IdentityService },
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

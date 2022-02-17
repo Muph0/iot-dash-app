@@ -1,7 +1,9 @@
 @import "variables";
+@import "styles.forms";
+@import "styles.navbar";
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 /* Obecne */
-
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +12,10 @@ body {
   font-family: $body-font;
   background-color: $body-color;
   min-height: 100vh;
+
+  .container {
+    padding-top: 16px;
+  }
 }
 h1 {
   margin-bottom: 14px;
@@ -19,40 +25,13 @@ h2 {
   margin-bottom: 11px;
   font-size: 1.3rem;
 }
-
 .mono {
   font-family: monospace;
 }
 
-.paper {
-  background-color: white;
-  padding: $paper-padding;
-  margin: $paper-margin;
-}
-
-.content-wrapper {
-  max-width: 1200px;
-  margin-left: $sidenav-width;
-}
-
-table.table {
-  width: 100%;
-  border-collapse: collapse;
-
-  td,
-  th {
-    padding: 4px 7px;
-    text-align: left;
-  }
-  th {
-    border-bottom: 1px solid #eee;
-  }
-  td {
-    border-top: 1px solid #eee;
-  }
-  tr:nth-of-type(2n + 1) td {
-    background-color: #eee;
-  }
+// Icons
+i.bi {
+  vertical-align: middle;
 }
 
 // Util classes
@@ -69,32 +48,10 @@ table.table {
 
 // responsive stuff
 
-@for $i from 1 through 10 {
-  @media screen and (max-width: $i * 100px) {
-    .hide-lt-#{$i}00 {
+@each $name, $size in $grid-breakpoints {
+  @media (max-width: $size) {
+    .hide-lt-#{$name} {
       display: none;
-    }
-  }
-}
-
-@for $i from 1 through 12 {
-
-  .col-#{$i} {
-    width: $i / 12 * 100%;
-    display: inline-block;
-  }
-
-  @media screen and (min-width: 1000px) {
-    .col-#{$i}-lg {
-      width: $i / 12 * 100%;
-      display: inline-block;
-    }
-  }
-
-  @media screen and (min-width: 700px) {
-    .col-#{$i}-md {
-      width: $i / 12 * 100%;
-      display: inline-block;
     }
   }
 }

@@ -1,0 +1,15 @@
+.card {
+  .card-header i {
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  &:not(.expand) {
+    .card-header i {
+      transform: rotate(-90deg);
+    }
+    .card-body {
+      display: none;
+    }
+  }
+}

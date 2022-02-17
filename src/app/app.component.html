@@ -1,10 +1,59 @@
-<header class="main">
-  <a id="logo" routerLink="/">IOT-Dash</a>
-  <nav>
-    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/devices" routerLinkActive="active">My Devices</a>
-    <!--input type="text" placeholder="Hledat..." /-->
-    <div class="filler"></div>
-  </nav>
-</header>
-<router-outlet></router-outlet>
+<nav class="navbar navbar-expand-sm navbar-dark bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">IOT Dash</a>
+    <div id="navbarNav" class="collapse navbar-collapse" #navbarItems (click)="collapseNavbar()">
+      <ul class="navbar-nav">
+        <li *ngIf="identity.loggedIn | async" class="nav-item">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li *ngIf="identity.loggedIn | async" class="nav-item">
+          <a class="nav-link" routerLink="/list" routerLinkActive="active">My Devices</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto me-3">
+        <li *ngIf="identity.tokenPair | async as tokenPair" class="nav-item">
+          <a class="nav-link" routerLink="/me" routerLinkActive="active">
+            <i class="bi bi-person-circle"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div *ngIf="offline" class="alert alert-warning" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+      <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    It looks like you're offline.
+  </div>
+
+  <div class="toast-container">
+    <div *ngFor="let alert of messages" id="toast-{{alert.id}}" class="toast toast-{{alert.type}} fade" role="alert"
+      aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
+      <div class="toast-header">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+          <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        <strong class="me-auto">{{alert.title}}</strong>
+        <small>11 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{ alert.html }}
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>

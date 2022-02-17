@@ -5,16 +5,27 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2017",
     "module": "es2020",
+    "plugins": [{ "transform": "ts-nameof", "type": "raw" }],
+    "paths": {
+        "tslib": [ "./node_modules/tslib/tslib.d.ts" ]
+    },
     "lib": [
-      "es2018",
-      "dom"
+        "es2018",
+        "dom"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "strictTemplates": true,
+  },
 }

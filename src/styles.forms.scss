@@ -1,0 +1,58 @@
+/*******************************************************************************
+ * Validation
+ */
+.show-validation .form-control {
+  &.ng-touched,
+  &.ng-dirty {
+    padding-right: calc(1.5em + 0.75rem);
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+
+    &.ng-invalid {
+      border-color: #dc3545;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+
+      &:focus {
+        box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%);
+      }
+    }
+
+    &.ng-pending {
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle type='text/css'%3E%0Acircle %7B stroke: %230d6efdcc;%0Astroke-width: 1.4;%0Astroke-dasharray: 20;%0Atransform-origin: 6px 6px;%0Aanimation: 1s x linear infinite;%0Astroke-linecap: round;%0A%7D @keyframes x %7B 0%25 %7B transform: rotate(0deg); %7D 100%25 %7B transform: rotate(360deg); %7D%0A%7D%0A%3C/style%3E%3Ccircle fill='none' cx='6' cy='6' r='4.5'%3E%3C/circle%3E%3C/svg%3E");
+      background-size: calc(1em + 0.375rem) calc(1em + 0.375rem);
+    }
+
+    &.ng-valid {
+      border-color: #198754;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+      &:focus {
+        box-shadow: rgba(25, 135, 84, 0.25) 0px 0px 0px 4px;
+      }
+    }
+  }
+}
+
+span.form-control {
+  border-color: transparent;
+}
+
+/*******************************************************************************
+ * Buttons
+ */
+
+.btn.btn-add {
+  $add-color: #27cf2f;
+  color: #fff;
+  background-color: $add-color;
+  border-color: darken($add-color, 3%);
+  &:hover {
+    background-color: darken($add-color, 6%);
+  }
+  &:active {
+    background-color: darken($add-color, 8%);
+  }
+  &:focus {
+    box-shadow: 0 0 0 0.25rem transparentize($add-color, 0.75);
+  }
+}

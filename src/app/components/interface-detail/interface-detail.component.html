@@ -1,0 +1,35 @@
+<form *ngIf="form" class="show-validation" [formGroup]="form">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label" for="iface-topic">Topic</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="iface-topic" type="text" formControlName="topic">
+      <app-form-error-list [control]="form.controls.topic"></app-form-error-list>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label" for="iface-kind">Type</label>
+    <div class="col-sm-10">
+      <select formControlName="kind" class="form-select">
+        <option *ngFor="let kind of listKinds()" value="{{kind[1]}}">{{kind[0]}}</option>
+      </select>
+      <app-form-error-list [control]="form.controls.topic"></app-form-error-list>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="form-check form-switch">
+      <label class="form-check-label" for="iface-history-en">Log data</label>
+      <input class="form-check-input" formControlName="historyEnabled" role="switch" type="checkbox" name="iface-history-en" id="iface-history-en">
+      <!-- align right: float-none me-2 ms-2 -->
+    </div>
+  </div>
+
+  <div *ngIf="iface.isOutput" class="mb-3">
+    <label class="form-label" for="iface-expr">Value expression:</label>
+    <textarea class="form-control mono" id="iface-expr" type="text" formControlName="expression"></textarea>
+    <app-form-error-list [control]="form.controls.expression"></app-form-error-list>
+  </div>
+</form>
+
+<pre>{{ iface | json }}</pre>

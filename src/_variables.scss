@@ -2,10 +2,10 @@
 // Obecne
 
 $primary: #37d;
-$primary-special: rgb(86, 41, 194);
+$primary-special: #5629c2; /*rgb(86, 41, 194)*/
 $primary-active: darken($primary, 20%);
 
-$body-color: #eee;
+$body-color: rgb(216, 220, 233);
 $body-font: ("Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif);
 
 $paper-padding: 30px;
@@ -22,3 +22,42 @@ $topnav-glass-hover: rgba(255, 255, 255, 0.2);
 
 $sidenav-width: 250px;
 $sidenav-item-size: 50px;
+
+
+$grid-breakpoints: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px,
+  "xxl": 1400px
+);
+
+@mixin sm-and-less {
+  @media (max-width: map-get($grid-breakpoints, "sm")) {
+    @content
+  }
+};
+
+@mixin md-and-less {
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    @content
+  }
+};
+
+@mixin lg-and-less {
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
+    @content
+  }
+};
+
+@mixin md-and-more {
+  @media (min-width: map-get($grid-breakpoints, "sm")) {
+    @content
+  }
+};
+
+@mixin lg-and-more {
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    @content
+  }
+};

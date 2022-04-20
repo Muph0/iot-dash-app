@@ -59,11 +59,14 @@ export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, 
 
     private async initData() {
         const span = TimeSpan.fromMinutes(30);
-        const data = await this.ifsvc.getLastData(this.iface, span, 100);
+        const data = await this.ifsvc.getLastData(this.iface, span, this.maxPoints);
 
         for (let entry of data.unwrap()) {
             this.pushEntry(entry);
             this.chart.data.labels!.push(DateFns.startOfMinute(entry.time));
+        }
+        for (let dataset of this.chart.data.datasets) {
+            dataset.data.sort((a, b) => a.x - b.x);
         }
         this.chart.update('none');
     }
@@ -110,7 +113,7 @@ export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, 
         const { min, max } = this.chart.scales.x;
         clearTimeout(this.zoomPanDebounce);
         this.zoomPanDebounce = setTimeout(async () => {
-            const data = await this.ifsvc.getHistoryData(this.iface, new Date(min), new Date(max), 100);
+            const data = await this.ifsvc.getHistoryData(this.iface, new Date(min), new Date(max), this.maxPoints);
             for (let dataset of this.chart.data.datasets) {
                 dataset.data = [];
             }
@@ -153,8 +156,8 @@ export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, 
             },
             options: {
                 interaction: {
-                    intersect: false,
-                    axis: 'x',
+                    //intersect: false,
+                    //axis: 'x',
                 },
                 responsive: true,
                 maintainAspectRatio: false,
@@ -187,8 +190,14 @@ export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, 
                             mode: 'x',
                             wheel: { enabled: true },
                             pinch: { enabled: true },
+                            drag: { enabled: true, modifierKey: 'shift' },
                             onZoomComplete: this.startFetch.bind(this),
                         },
+                        limits: {
+                            x: {
+                                minRange: 1000 * 5
+                            }
+                        }
                     }
                 }
             }

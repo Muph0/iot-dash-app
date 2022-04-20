@@ -18,6 +18,10 @@ import { HistoryChartComponent } from './components/history-chart/history-chart.
 
 import 'chart.js/auto';
 import 'src/app/utils/chartjs-adapter-datefns';
+import zoomPlugin from 'chartjs-plugin-zoom';
+import { Chart } from 'chart.js';
+
+Chart.register(zoomPlugin);
 
 @NgModule({
     declarations: [

@@ -33,6 +33,8 @@ export class InterfaceListComponent implements OnInit {
         let result = await this.ifservice.createInterface();
         if (result.ok) {
             this.interfaces.push(result.value);
+        } else {
+            console.error(result);
         }
     }
 

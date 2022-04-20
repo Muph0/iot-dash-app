@@ -21,8 +21,8 @@ export class ContractDomainMapping {
             max: contract.max,
         };
     }
-    static UTCtoLocal(utc: Date): Date {
-        return new Date(utc.getTime() + new Date().getTimezoneOffset());
+    static UTCtoLocal(utc: Date | string | number): Date {
+        return new Date(new Date(utc).getTime() + new Date().getTimezoneOffset());
     }
 }
 

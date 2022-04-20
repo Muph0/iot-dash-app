@@ -300,6 +300,19 @@ components:
           readOnly: true
       additionalProperties: false
       description: Represents a measurement event in time.
+    HistoryEntryUpdate:
+      required:
+        - entry
+        - interfaceId
+      type: object
+      properties:
+        entry:
+          $ref: '#/components/schemas/HistoryEntry'
+        interfaceId:
+          type: string
+          format: uuid
+          readOnly: true
+      additionalProperties: false
     HistoryRequest:
       required:
         - fromUTC

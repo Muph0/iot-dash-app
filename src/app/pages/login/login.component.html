@@ -1,39 +1,41 @@
-<div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+<div class="container">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
 
-  <div *ngIf="(loggedIn | async)" class="alert alert-success" role="alert">
-    <i class="bi bi-check-circle-fill me-2 fs-4"></i>
-    You are logged in
-  </div>
+    <div *ngIf="(loggedIn | async)" class="alert alert-success" role="alert">
+      <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+      You are logged in
+    </div>
 
-  <div *ngIf="!(loggedIn | async)" class="card">
-    <h1 class="card-header">
-      Login
-    </h1>
-    <div class="card-body">
-      <form>
-        <div class="mb-3">
-          <label for="login-username" class="form-label">Username</label>
-          <input type="email" class="form-control" id="login-username" [formControl]="ctrlUser">
-          <small *ngIf="ctrlUser.errors?.required && ctrlUser.touched" class="text-danger">
-            Username is required
-          </small>
-        </div>
-        <div class="mb-3">
-          <label for="login-password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="login-password" [formControl]="ctrlPassword">
-          <small *ngIf="ctrlPassword.errors?.required && ctrlPassword.touched" class="text-danger">
-            Username is required
-          </small>
-        </div>
-        <div class="mb-3">
-          <button type="submit" class="btn btn-primary" (click)="loginClick()" [class.disabled]="loading">
-            <div *ngIf="loading" class="spinner-border text-light spinner-border-sm" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            Login
-          </button>
-        </div>
-      </form>
+    <div *ngIf="!(loggedIn | async)" class="card">
+      <h1 class="card-header">
+        Login
+      </h1>
+      <div class="card-body">
+        <form>
+          <div class="mb-3">
+            <label for="login-username" class="form-label">Username</label>
+            <input type="email" class="form-control" id="login-username" [formControl]="ctrlUser">
+            <small *ngIf="ctrlUser.errors?.required && ctrlUser.touched" class="text-danger">
+              Username is required
+            </small>
+          </div>
+          <div class="mb-3">
+            <label for="login-password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="login-password" [formControl]="ctrlPassword">
+            <small *ngIf="ctrlPassword.errors?.required && ctrlPassword.touched" class="text-danger">
+              Username is required
+            </small>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary" (click)="loginClick()" [class.disabled]="loading">
+              <div *ngIf="loading" class="spinner-border text-light spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

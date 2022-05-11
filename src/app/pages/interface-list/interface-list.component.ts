@@ -11,7 +11,7 @@ import { ContractDomainMapping } from 'src/contract/mappings/contract-domain-map
 export class InterfaceListComponent implements OnInit {
 
     interfaces: IotInterface[];
-    expanded: { [key: string]: boolean } = {};
+    expanded = new WeakMap<IotInterface, boolean>();
 
     constructor(
         private ifservice: InterfaceService,
@@ -25,14 +25,16 @@ export class InterfaceListComponent implements OnInit {
         this.interfaces = await this.ifservice.getAll();
     }
 
-    togExpand(elem: HTMLElement) {
-        elem.classList.toggle('expand');
+    togExpand(iface: IotInterface) {
+        this.expanded.set(iface, !this.expanded.get(iface));
     }
 
     async addInterface() {
         let result = await this.ifservice.createInterface();
         if (result.ok) {
-            this.interfaces.push(result.value);
+            const iface = result.value;
+            this.interfaces.push(iface);
+            this.expanded.set(iface, true);
         } else {
             console.error(result);
         }

@@ -1,27 +1,31 @@
-<button class="btn btn-lg btn-add mb-3" (click)="addInterface()">
-  <i class="bi bi-plus-lg"></i>
-  <span class="d-none d-sm-inline"> Add interface</span>
-</button>
+<div class="container">
+
+  <button class="btn btn-lg btn-add mb-3" (click)="addInterface()">
+    <i class="bi bi-plus-lg"></i>
+    <span class="d-none d-sm-inline"> Add interface</span>
+  </button>
 
 
-<div *ngIf="interfaces">
-  <div *ngFor="let iface of interfaces" #card class="card mb-3 expand">
-    <h5 class="card-header">
-      <div class="float-start">
-        <button class="btn" type="button" (click)="togExpand(card)">
-          <i class="bi bi-chevron-down"></i>
-        </button>
-        <span>{{ iface.topic }}</span>
+  <div *ngIf="interfaces">
+    <div *ngFor="let iface of interfaces" #card class="card mb-3" [class.expand]="expanded.get(iface)">
+      <h5 class="card-header">
+        <div class="float-start">
+          <button class="btn" type="button" (click)="togExpand(iface)">
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <span>{{ iface.topic }}</span>
+        </div>
+        <div class="float-end">
+          <button class="btn btn-danger" (click)="deleteInterface(iface)">
+            Delete
+          </button>
+        </div>
+      </h5>
+      <div class="card-body">
+        <app-interface-detail [iface]="iface"></app-interface-detail>
+        <app-history-chart [iface]="iface"></app-history-chart>
       </div>
-      <div class="float-end">
-        <button class="btn btn-danger" (click)="deleteInterface(iface)">
-          Delete
-        </button>
-      </div>
-    </h5>
-    <div class="card-body">
-      <app-interface-detail [iface]="iface"></app-interface-detail>
-      <app-history-chart [iface]="iface"></app-history-chart>
     </div>
   </div>
+
 </div>

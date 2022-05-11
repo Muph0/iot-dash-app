@@ -1,0 +1,79 @@
+@import "variables";
+@import "../../../variables";
+
+
+.dashboard-container {
+
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px auto;
+
+  //outline: 8px solid rgba($color: green, $alpha: 0.1);
+
+  .grow {
+    flex-grow: 10000;
+  }
+
+  .dash-item {
+    flex-grow: 0;
+    height: $module-height;
+    display: flex;
+
+    //background-color: rgba($color: red, $alpha: 0.1);
+    //outline: 1px solid gray;
+    //outline-offset: -1px;
+
+  }
+
+  .add-item {
+    flex-grow: 0;
+  }
+  .card {
+    margin: $card-pad;
+    flex-grow: 1;
+    flex-flow: row;
+    align-items: center;
+    background-color: transparent;
+    border: 0.6rem dotted rgba($primary, 0.7);
+    transition: all .5s;
+
+    .plus-btn {
+      text-align: center;
+      width: 100%;
+      color: $primary;
+      transition: inherit;
+      transform: scale(1);
+    }
+    &:hover {
+      cursor: pointer;
+      border-color: $primary;
+      .plus-btn { transform: scale(1.1); }
+    }
+    i { display: block; }
+  }
+
+  @include dashboard-steps using ($i, $container-width) {
+
+    width: $container-width;
+
+    @for $j from 1 through $max-modules-in-row+1 {
+      .wid-#{$j} {
+        width: $j * module-width($i);
+      }
+    }
+
+    @if $container-width == 100% {
+      .dash-item {
+        flex-grow: 1;
+      }
+    }
+
+    //.echo::before {
+    //  content: "modules: #{$i}";
+    //  display: block;
+    //}
+  }
+}
+
+
+

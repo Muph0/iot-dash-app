@@ -1,0 +1,7 @@
+<div class="card" [class.card-settings]="inSettings">
+  <i class="gear bi bi-gear-fill" (click)="inSettings = !inSettings"></i>
+  <ng-container [ngSwitch]="control.type">
+    <app-gauge-control *ngSwitchCase="'gauge'" [inSettings]="inSettings"></app-gauge-control>
+    <ng-container *ngSwitchDefault>Unknown control</ng-container>
+  </ng-container>
+</div>

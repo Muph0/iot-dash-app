@@ -1,0 +1,36 @@
+@import "../../pages/dashboard/variables";
+@import "../../../variables";
+
+.card {
+  //flex-grow: 1;
+  margin: $card-pad;
+  position: relative;
+  padding: 8px;
+  width: 100%;
+  transition: all .5s;
+
+  .gear {
+    padding: 8px;
+    display: block;
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    transition: inherit;
+    transform: scale(1.1);
+    color: darken($body-color, 10);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+
+  &.card-settings {
+    background-color: rgba(#046, 0.1);
+    .gear {
+      color: lighten($body-color, 10);
+    }
+  }
+}
+
+

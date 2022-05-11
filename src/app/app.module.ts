@@ -20,6 +20,8 @@ import 'chart.js/auto';
 import 'src/app/utils/chartjs-adapter-datefns';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Chart } from 'chart.js';
+import { DashItemComponent } from './components/dash-item/dash-item.component';
+import { GaugeControlComponent } from './components/gauge-control/gauge-control.component';
 
 Chart.register(zoomPlugin);
 
@@ -35,7 +37,9 @@ Chart.register(zoomPlugin);
         InterfaceListComponent,
         InterfaceDetailComponent,
         FormErrorListComponent,
-        HistoryChartComponent
+        HistoryChartComponent,
+        DashItemComponent,
+        GaugeControlComponent
     ],
     imports: [
         BrowserModule,
@@ -51,3 +55,4 @@ Chart.register(zoomPlugin);
 export class AppModule {
 
 }
+// 540 720 960 1140 1320

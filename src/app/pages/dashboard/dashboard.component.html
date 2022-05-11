@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<div class="echo"></div>
+<div class="dashboard-container">
+  <ng-container *ngFor="let ctrl of controls">
+    <app-dash-item [control]="ctrl" [class]="classListForControl(ctrl)"></app-dash-item>
+  </ng-container>
+  <div class="dash-item add-item wid-1">
+    <div class="card" (click)="addItemClickHandler()">
+        <div class="plus-btn">
+          <i class="bi bi-plus-circle-dotted fs-1"></i>
+          Add item
+        </div>
+    </div>
+  </div>
+</div>

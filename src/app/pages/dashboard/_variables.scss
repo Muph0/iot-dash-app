@@ -1,0 +1,33 @@
+
+
+$module-height: 316px;
+$max-modules-in-row: 6;
+$card-pad: 8px;
+
+@function module-width($i) {
+  @return 200px + $i * 20px;
+}
+
+@mixin dashboard-steps {
+  @for $i from 1 to ($max-modules-in-row + 1) {
+
+    $container-width: $i * module-width($i);
+
+    @if $i <= 2 {
+      $container-width: 100%;
+    }
+
+    $pad: 20px;
+    $brk: $i * module-width($i) + $pad;
+    $next-brk: module-width($i + 1) * ($i + 1) + $pad;
+
+    @if $i == $max-modules-in-row {
+      $next-brk: 1000000px;
+    }
+
+    @media screen and (min-width: $brk) and (max-width: ($next-brk + 1px)) {
+      @content($i, $container-width);
+    }
+  }
+}
+

@@ -1,6 +1,7 @@
-<p>
-  gauge-control works!
-</p>
-<p>
-  options: {{inSettings}}
-</p>
+<ng-template [ngIf]="!inSettings" [ngIfElse]="settings">
+  Hello gauge control!
+</ng-template>
+
+<ng-template #settings>
+  <p>Other settings..</p>
+</ng-template>

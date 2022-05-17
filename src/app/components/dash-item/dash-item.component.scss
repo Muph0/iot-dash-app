@@ -5,23 +5,25 @@
   //flex-grow: 1;
   margin: $card-pad;
   position: relative;
-  padding: 8px;
+  //padding: 8px;
   width: 100%;
   transition: all .5s;
 
-  .gear {
-    padding: 8px;
-    display: block;
+  .header-buttons {
     position: absolute;
-    top: 2px;
-    right: 6px;
+    top: 0px;
+    right: 0px;
+    padding: 1px;
+
+    & > * {
+      margin-left: 6px;
+    }
+  }
+
+  .gear {
     transition: inherit;
     transform: scale(1.1);
     color: darken($body-color, 10);
-
-    &:hover {
-      cursor: pointer;
-    }
   }
 
 

@@ -1,0 +1,3 @@
+
+- import "./node_modules/chart.js/dist/chart.js" correctly via angular modules
+

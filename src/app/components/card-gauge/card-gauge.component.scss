@@ -1,0 +1,30 @@
+
+@mixin hl {
+  //background-color: rgba($color: green, $alpha: 0.1);
+}
+
+:host {
+  @include hl;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-settings :host {
+  height: unset;
+  display: block;
+}
+
+.measurement {
+  @include hl;
+  padding-bottom: 12px;
+}
+.c {
+  text-align: center;
+}
+
+.value {
+  font-size: 2.4rem;
+}

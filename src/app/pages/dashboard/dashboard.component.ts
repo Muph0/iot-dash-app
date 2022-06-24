@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { range, Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { range, Subject, Subscription } from 'rxjs';
 import { map, share } from 'rxjs/operators';
-import { DashboardItem } from 'src/app/domain';
+import { DashCardInfo, PersistentCard } from 'src/app/domain';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
@@ -9,31 +9,39 @@ import { DashboardService } from 'src/app/services/dashboard.service';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
-    controls: DashboardItem[];
+    private subs: Subscription[];
+    cards: PersistentCard[];
 
     constructor(
         private db: DashboardService,
     ) { }
 
     ngOnInit(): void {
-        this.fetchControls();
+        this.subs = [...this.subscribeAll()];
+    }
+    ngOnDestroy(): void {
+        for (let sub of this.subs) {
+            sub.unsubscribe();
+        }
     }
 
-    private async fetchControls() {
-        this.controls = await this.db.getItems();
+    private *subscribeAll() {
+        yield this.db.cardStream.subscribe(cards => {
+            this.cards = cards;
+        });
     }
 
-    async addItemClickHandler() {
-        this.controls.push(await this.db.createItem());
+    addItemClickHandler() {
+        this.db.createCard();
     }
 
-    classListForControl(item: DashboardItem) {
+    classListForCard(card: DashCardInfo) {
         return [
             'dash-item',
-            'wid-' + item.width,
-            (item.type === 'chart') && 'grow',
+            'wid-' + card.width,
+            (card.type === 'chart') && 'grow',
         ].filter(x => x).join(' ');
     }
 }

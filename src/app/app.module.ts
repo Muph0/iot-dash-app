@@ -20,8 +20,10 @@ import 'chart.js/auto';
 import 'src/app/utils/chartjs-adapter-datefns';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Chart } from 'chart.js';
-import { DashItemComponent } from './components/dash-item/dash-item.component';
-import { GaugeControlComponent } from './components/gauge-control/gauge-control.component';
+import { DashItemComponent } from './components/dash-card/dash-card.component';
+import { GaugeControlComponent } from './components/card-gauge/card-gauge.component';
+import { GaugeChartComponent } from './components/dash-card/gauge-chart.component';
+import { CardSourceBoxComponent } from './components/dash-card/card-source-box.component';
 
 Chart.register(zoomPlugin);
 
@@ -39,7 +41,9 @@ Chart.register(zoomPlugin);
         FormErrorListComponent,
         HistoryChartComponent,
         DashItemComponent,
-        GaugeControlComponent
+        GaugeControlComponent,
+        GaugeChartComponent,
+        CardSourceBoxComponent,
     ],
     imports: [
         BrowserModule,
@@ -53,6 +57,12 @@ Chart.register(zoomPlugin);
     bootstrap: [AppComponent]
 })
 export class AppModule {
+
+    constructor() {
+
+
+
+    }
 
 }
 // 540 720 960 1140 1320

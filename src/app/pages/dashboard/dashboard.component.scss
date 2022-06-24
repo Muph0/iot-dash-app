@@ -35,19 +35,18 @@
     align-items: center;
     background-color: transparent;
     border: 0.6rem dotted rgba($primary, 0.7);
-    transition: all .5s;
+    transition: all .3s;
 
     .plus-btn {
       text-align: center;
       width: 100%;
       color: $primary;
       transition: inherit;
-      transform: scale(1);
     }
     &:hover {
       cursor: pointer;
+      background-color: rgba($primary, $alpha: .15);
       border-color: $primary;
-      .plus-btn { transform: scale(1.1); }
     }
     i { display: block; }
   }

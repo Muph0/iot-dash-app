@@ -5,15 +5,22 @@
 
   <div class="header-buttons">
 
-    <button type="button" class="btn btn-outline-danger bi bi-trash-fill" *ngIf="inSettings" (dblclick)="deleteSelf()"
-    data-toggle="tooltip" data-placement="top" title="Double click to delete"></button>
+    <button type="button" class="btn btn-outline-danger bi bi-trash-fill" *ngIf="inSettings" (click)="deleteSelf()"
+      data-toggle="tooltip" data-placement="top" title="Double click to delete"></button>
     <i class="gear btn bi bi-gear-fill" (click)="inSettings = !inSettings"></i>
   </div>
 
   <div class="card-body">
 
     <ng-container *ngIf="inSettings">
-      <div class="form-group">
+
+      <div class="form-group mb-3">
+        <label *ngIf="card.sources.length > 0">Sources:</label>
+        <app-card-src-box *ngFor="let i of card.sourceIndices" [index]="i" [card]="card" type="text"></app-card-src-box>
+        <button class="btn btn-light" (click)="card.addSource('')">Add source</button>
+      </div>
+
+      <div class="form-group mb-3">
         <label for="type-{{id}}">Display type</label>
         <select class="form-control" id="type-{{id}}" [formControl]="form.type">
           <option value="gauge">Gauge</option>
@@ -21,7 +28,7 @@
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label for="width-{{id}}">Width</label>
         <input id="width-{{id}}" class="form-control" type="number" name="width" [formControl]="form.width" min="1"
           max="6" />
@@ -30,9 +37,9 @@
 
 
     </ng-container>
-    <ng-container [ngSwitch]="control.type">
-      <app-gauge-control *ngSwitchCase="'gauge'" [inSettings]="inSettings"></app-gauge-control>
-      <ng-container *ngSwitchDefault>Unknown control</ng-container>
+    <ng-container [ngSwitch]="card.type">
+      <app-card-gauge *ngSwitchCase="'gauge'" [card]="card" [inSettings]="inSettings"></app-card-gauge>
+      <ng-container *ngSwitchDefault>Unknown card type</ng-container>
     </ng-container>
   </div>
 </div>

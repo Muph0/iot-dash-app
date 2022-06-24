@@ -1,7 +1,7 @@
 <div class="echo"></div>
 <div class="dashboard-container">
-  <ng-container *ngFor="let ctrl of controls">
-    <app-dash-item [control]="ctrl" [class]="classListForControl(ctrl)"></app-dash-item>
+  <ng-container *ngFor="let card of cards">
+    <app-dash-card [card]="card" [class]="classListForCard(card)"></app-dash-card>
   </ng-container>
   <div class="dash-item add-item wid-1">
     <div class="card" (click)="addItemClickHandler()">

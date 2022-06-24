@@ -1,24 +1,26 @@
 import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DashboardItem } from 'src/app/domain';
+import { DashCardInfo as DashCardInfo, PersistentCard } from 'src/app/domain';
+import { DashboardService } from 'src/app/services/dashboard.service';
 import { RandomProvider } from 'src/app/services/random-provider.service';
 import { assert } from 'src/app/utils';
 
 @Component({
-    selector: 'app-dash-item',
-    templateUrl: './dash-item.component.html',
-    styleUrls: ['./dash-item.component.scss']
+    selector: 'app-dash-card',
+    templateUrl: './dash-card.component.html',
+    styleUrls: ['./dash-card.component.scss']
 })
 export class DashItemComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
         private rng: RandomProvider,
+        private db: DashboardService,
     ) {
         this.id = rng.getToken(8);
     }
 
-    @Input() control: DashboardItem;
+    @Input() card: PersistentCard;
     inSettings = false;
     id: string;
 
@@ -28,22 +30,22 @@ export class DashItemComponent implements OnInit {
     };
 
     ngOnInit(): void {
-        assert(this.control, 'Dashboard item: No control given.');
+        assert(this.card, 'Dashboard item: No control given.');
 
         this.form = {
-            width: new FormControl(this.control.width),
-            type: new FormControl(this.control.type),
+            width: new FormControl(this.card.width),
+            type: new FormControl(this.card.type),
         };
 
         this.form.width.valueChanges.subscribe(value => {
-            this.control.width = value;
+            this.card.width = value;
         });
         this.form.type.valueChanges.subscribe(value => {
-            this.control.type = value;
+            this.card.type = value;
         });
     }
 
     deleteSelf() {
-        console.log('Delete');
+        this.db.removeCard(this.card);
     }
 }

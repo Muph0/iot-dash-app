@@ -1,0 +1,16 @@
+<ng-template [ngIf]="!inSettings" [ngIfElse]="settings">
+  <div *ngFor="let source of card.sources" class="measurement">
+    <div class="c value">
+      123°C
+    </div>
+    <div class="c desc">
+      Description of value
+    </div>
+  </div>
+  <div class="c only-child text-muted">
+    No sources.
+  </div>
+</ng-template>
+
+<ng-template #settings>
+</ng-template>

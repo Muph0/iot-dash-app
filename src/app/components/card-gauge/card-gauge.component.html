@@ -1,10 +1,10 @@
 <ng-template [ngIf]="!inSettings" [ngIfElse]="settings">
   <div *ngFor="let source of card.sources" class="measurement">
     <div class="c value">
-      123°C
+      {{ source?.value }}
     </div>
     <div class="c desc">
-      Description of value
+      {{ source?.topic }}
     </div>
   </div>
   <div class="c only-child text-muted">

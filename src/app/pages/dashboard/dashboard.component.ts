@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.db.createCard();
     }
 
-    classListForCard(card: DashCardInfo) {
+    classListForCard(card: PersistentCard) {
         return [
             'dash-item',
             'wid-' + card.width,

@@ -1,4 +1,5 @@
 import { Inject, Injectable, Injector } from "@angular/core";
+import { minutesToMilliseconds } from "date-fns";
 import { FetchParams, Middleware, RequestContext } from "src/contract/backend-v1";
 import { Jwt } from "../domain/token";
 import { IIdentityService } from "../services/identity.service";
@@ -25,7 +26,7 @@ export class AuthenticationMiddleware implements Middleware {
             const headers = context.init.headers || {} as any;
             var token = this.auth.getTokenPair()?.jwt as Jwt;
 
-            if (token.isExpired()) {
+            if (token.expiresIn(minutesToMilliseconds(1))) {
                 try {
                     const newPair = await this.auth.refresh();
                     token = newPair.jwt;

@@ -12,7 +12,7 @@ import { ServerEventService } from 'src/app/services/server-event.service';
 @Component({
     selector: 'app-history-chart',
     templateUrl: './history-chart.component.html',
-    styleUrls: ['./history-chart.component.scss']
+    styles: [''],
 })
 
 export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
@@ -30,8 +30,9 @@ export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, 
         private mediator: MediatorService,
         private ifsvc: InterfaceService,
         private zone: NgZone,
-        private serverEvents: ServerEventService,
+        serverEvents: ServerEventService,
     ) {
+        serverEvents.startConnectionIfNotStarted();
         this.subs.push(mediator.addEventHandlers({
             historyEntryUpdate: this.onHistoryUpdate.bind(this),
         }));
@@ -110,6 +111,8 @@ export class HistoryChartComponent implements OnInit, OnDestroy, AfterViewInit, 
 
     private zoomPanDebounce: any;
     private startFetch() {
+        if (!this.iface.historyEnabled) return;
+
         const { min, max } = this.chart.scales.x;
         clearTimeout(this.zoomPanDebounce);
         this.zoomPanDebounce = setTimeout(async () => {

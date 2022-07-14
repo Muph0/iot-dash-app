@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
+import { ChangeDetectorRef, Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable, Subject } from "rxjs";
 import { DashCardInfo, PersistentCard } from "../domain";
+import { InterfaceService } from "./interface.service";
 import { StorageService } from "./persistency.service";
 
 const STATE_KEY = 'dashboard';
@@ -23,20 +24,27 @@ export class DashboardService {
     get onRemove() { return this.onRemoveEvent.asObservable(); }
 
     constructor(
-        private readonly storage: StorageService
+        private readonly storage: StorageService,
+        private readonly ifdb: InterfaceService,
     ) {
         if (storage.hasKey(STATE_KEY)) {
             const state = storage.get<DashboardState>(STATE_KEY);
 
             this.card_ai = state.card_ai;
-            this.cardsSubject = new BehaviorSubject(
-                state.cards.map(info => new PersistentCard(this, info))
-            );
+            this.cardsSubject = new BehaviorSubject([]);
+
+            Promise.all(state.cards.map(c => PersistentCard.FromInfoWithSources(this, ifdb, c))).then(cards => {
+                this.cardsSubject.next(cards);
+            });
         }
     }
 
     async getCards(): Promise<PersistentCard[]> {
-        return this.cardsSubject.value;
+        return this.cards;
+    }
+
+    async getCard(cardId: number): Promise<PersistentCard | undefined> {
+        return this.cards.find(c => c.id == cardId);
     }
 
     get cardStream(): Observable<PersistentCard[]> {
@@ -49,7 +57,7 @@ export class DashboardService {
             type: "gauge",
             width: 1,
         };
-        const card = new PersistentCard(this, info);
+        const card = await PersistentCard.FromInfoWithSources(this, this.ifdb, info);
 
         this.cards.push(card);
         await this.saveChanges();
@@ -78,6 +86,7 @@ export class DashboardService {
             cards: this.cardsSubject.value.map(c => c.bareInfo()),
         };
 
+        console.log('dashboard.service saving:', state);
         this.storage.set(STATE_KEY, state);
     }
 }

@@ -4,11 +4,14 @@ export const enum SubscriptionState {
     Active, Suspended, Cancelled
 }
 
-export interface IEventSubscription {
+export interface ISubscription {
+    unsubscribe(): void;
+}
+
+export interface IEventSubscription extends ISubscription {
     get state(): SubscriptionState;
     suspend(): void;
     resume(): void;
-    unsubscribe(): void;
 }
 
 export interface IEventSource<TEvent extends IEvent> {

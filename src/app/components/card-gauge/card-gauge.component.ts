@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PersistentCard } from 'src/app/domain';
-import { assert } from 'src/app/utils';
+import { HistoryEntryUpdateEvent } from 'src/app/domain/events';
+import { MediatorService } from 'src/app/services/mediator.service';
+import { assert, IEventSubscription } from 'src/app/utils';
 
 @Component({
     selector: 'app-card-gauge',
@@ -13,7 +15,11 @@ export class GaugeControlComponent implements OnInit {
     @Input() inSettings: boolean;
     @Input() card: PersistentCard;
 
-    constructor() { }
+    private readonly subs: IEventSubscription[] = [];
+
+    constructor(
+        private mediator: MediatorService,
+    ) { }
 
     form: {
         width: FormControl;
@@ -22,8 +28,19 @@ export class GaugeControlComponent implements OnInit {
 
     ngOnInit(): void {
         assert(this.card, 'Dashboard item: No control given.');
+        this.subs.push(this.mediator.addEventHandlers({
+            historyEntryUpdate: this.onHistoryUpdate.bind(this),
+        }));
+    }
 
+    private onHistoryUpdate(sender: object, event: HistoryEntryUpdateEvent) {
+        for (let iface of this.card.sources) {
+            if (!iface) continue;
 
+            if (event.interfaceId === iface.id) {
+                iface.value = event.entry.value;
+            }
+        }
     }
 
 }

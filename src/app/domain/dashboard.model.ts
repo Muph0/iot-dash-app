@@ -1,4 +1,6 @@
 import { DashboardService } from "../services/dashboard.service";
+import { InterfaceService } from "../services/interface.service";
+import { IotInterface } from "./interface.model";
 
 export interface DashCardInfo {
     readonly id: number;
@@ -7,16 +9,27 @@ export interface DashCardInfo {
     readonly sources?: readonly string[];
 };
 
-export class PersistentCard implements DashCardInfo {
+type CardSource = IotInterface | null
+
+export class PersistentCard {
 
     constructor(
         private db: DashboardService,
-        fromInfo: DashCardInfo
+        private ifdb: InterfaceService,
+        fromInfo: DashCardInfo,
     ) {
         this.id = fromInfo.id;
         this._type = fromInfo.type;
         this._width = fromInfo.width;
-        this._sources = fromInfo.sources ? [...fromInfo.sources] : [];
+        this._sources = [];
+    }
+
+    static async FromInfoWithSources(db: DashboardService, ifdb: InterfaceService, fromInfo: DashCardInfo) {
+        const result = new PersistentCard(db,ifdb, fromInfo);
+        if (fromInfo.sources)
+            await result.getSources(fromInfo.sources);
+
+        return result;
     }
 
     public readonly id: number;
@@ -25,31 +38,26 @@ export class PersistentCard implements DashCardInfo {
     get type() { return this._type; }
     set type(value: DashCardInfo['type']) {
         this._type = value;
-        this.persist();
     }
 
     private _width: DashCardInfo['width'];
     get width() { return this._width; }
     set width(value: DashCardInfo['width']) {
         this._width = value;
-        this.persist();
     }
 
-    private _sources: string[];
+    private _sources: CardSource[];
     get sources() { return Object.freeze([...this._sources]); }
     get sourceIndices() { return this._sources.map((v, i) => i); }
 
-    addSource(source: string) {
+    addSource(source: CardSource) {
         this._sources.push(source);
-        this.persist();
     }
     removeSource(idx: number) {
         this._sources.splice(idx, 1);
-        this.persist();
     }
-    updateSource(idx: number, source: string) {
+    updateSource(idx: number, source: CardSource) {
         this._sources[idx] = source;
-        this.persist();
     }
 
     remove() {
@@ -61,11 +69,16 @@ export class PersistentCard implements DashCardInfo {
             id: this.id,
             type: this.type,
             width: this.width,
-            sources: this.sources,
+            sources: this.sources.filter(x => x).map(iface => iface!.id),
         }
     }
 
-    private persist() {
+    private async getSources(ids: readonly string[]) {
+        const results = await Promise.all(ids.map(id => this.ifdb.getInterfaceById(id)));
+        this._sources = results.map(r => r.ok ? r.unwrap() : null);
+    }
+
+    public persist() {
         this.db.updateCard(this);
     }
 }

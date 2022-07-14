@@ -18,6 +18,8 @@
 
     & > * {
       margin-left: 6px;
+      position: relative;
+      z-index: 1;
     }
   }
 

@@ -19,8 +19,7 @@ export class InterfaceService {
 
 
     private ifapi: Contract.InterfaceApi;
-
-    private cache: Map<string, Domain.IotInterface> = new Map();
+    private cache = new Map<string, Domain.IotInterface>();
 
     constructor(
         private provider: ApiV1ServiceProvider
@@ -30,7 +29,7 @@ export class InterfaceService {
 
     async getAll() {
         let backendResponse = await this.unwrapHttpError(() => this.ifapi.getInterfaces());
-        return backendResponse.map(iface => ContractDomainMapping.MapInterface(iface));
+        return backendResponse.map(iface => this.mapInterface(iface));
     }
 
     async unwrapHttpError<TResponse>(fn: () => Promise<TResponse>): Promise<TResponse> {
@@ -47,6 +46,20 @@ export class InterfaceService {
         return backendResponse;
     }
 
+    async getInterfaceById(id: string): AsyncResult<Domain.IotInterface> {
+        let backendResponse = await this.unwrapHttpError(() => this.ifapi.getInterface({
+            ifaceId: id
+        }));
+
+        if (backendResponse) {
+            return Result.Ok(
+                this.mapInterface(backendResponse)
+            );
+        } else {
+            return Result.Err(["Couldn't get interface from server."]);
+        }
+    }
+
     async patchInterface(patch: PartialInterface): AsyncResult<Domain.IotInterface> {
         let backendResponse = await this.unwrapHttpError(() => this.ifapi.updateInterface({
             ifaceId: patch.id,
@@ -55,7 +68,7 @@ export class InterfaceService {
 
         if (backendResponse.success) {
             return Result.Ok(
-                ContractDomainMapping.MapInterface(backendResponse._interface!)
+                this.mapInterface(backendResponse._interface!)
             );
         } else {
             return Result.Err(backendResponse.errors!);
@@ -83,7 +96,7 @@ export class InterfaceService {
         }));
 
         if (backendResponse.success) {
-            return Result.Ok(ContractDomainMapping.MapInterface(backendResponse._interface!));
+            return Result.Ok(this.mapInterface(backendResponse._interface!));
         } else {
             return Result.Err(backendResponse.errors!);
         }
@@ -112,4 +125,22 @@ export class InterfaceService {
             return Result.Err(backendResponse.errors!);
         }
     }
+
+    public isCachedById(id: string) {
+        return this.cache.has(id);
+    }
+
+    private mapInterface(contract: Contract.IotInterface): Domain.IotInterface {
+        var iface: Domain.IotInterface;
+        if (this.cache.has(contract.id)) {
+            iface = this.cache.get(contract.id)!;
+            iface.updateFrom(contract);
+        } else {
+            iface = ContractDomainMapping.MapInterface(contract, this);
+            this.cache.set(contract.id, iface);
+        }
+        return iface;
+    }
+
+
 }

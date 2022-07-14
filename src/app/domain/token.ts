@@ -78,6 +78,10 @@ export class Jwt {
         return new Date() > this.expires();
     }
 
+    public expiresIn(millis: number) {
+        return (new Date().getTime() + millis) > this.expires().getTime();
+    }
+
     public getSubject(): string {
         return this.getRequiredClaim(JwtClaims.Subject);
     }

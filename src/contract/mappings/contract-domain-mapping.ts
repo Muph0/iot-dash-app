@@ -1,10 +1,12 @@
 import * as Contract from "../backend-v1";
 import * as Domain from "../../app/domain";
+import { InterfaceService } from "src/app/services/interface.service";
 
 
 export class ContractDomainMapping {
-    static MapInterface(contract: Contract.IotInterface): Domain.IotInterface {
+    static MapInterface(contract: Contract.IotInterface, db: InterfaceService): Domain.IotInterface {
         return new Domain.IotInterface(
+            db,
             contract.id,
             contract.kind,
             contract.value,

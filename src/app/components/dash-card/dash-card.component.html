@@ -1,4 +1,4 @@
-<div class="card" [class.card-settings]="inSettings">
+<div class="card" *ngIf="card" [class.card-settings]="inSettings">
   <div class="card-header text-muted" *ngIf="inSettings">
     Settings
   </div>
@@ -15,9 +15,14 @@
     <ng-container *ngIf="inSettings">
 
       <div class="form-group mb-3">
-        <label *ngIf="card.sources.length > 0">Sources:</label>
-        <app-card-src-box *ngFor="let i of card.sourceIndices" [index]="i" [card]="card" type="text"></app-card-src-box>
-        <button class="btn btn-light" (click)="card.addSource('')">Add source</button>
+        <div>Sources:</div>
+
+        <div class="input-group mb-3" *ngFor="let i of card.sourceIndices" >
+            <app-card-src-box [index]="i" [card]="card" type="text"></app-card-src-box>
+            <span class="input-group-text btn btn-outline-danger" (click)="removeSource(i)">&#x2716;</span>
+        </div>
+
+        <button class="btn btn-light" (click)="card.addSource(null)">Add source</button>
       </div>
 
       <div class="form-group mb-3">
@@ -39,6 +44,7 @@
     </ng-container>
     <ng-container [ngSwitch]="card.type">
       <app-card-gauge *ngSwitchCase="'gauge'" [card]="card" [inSettings]="inSettings"></app-card-gauge>
+      <app-card-chart *ngSwitchCase="'chart'" [card]="card" [inSettings]="inSettings"></app-card-chart>
       <ng-container *ngSwitchDefault>Unknown card type</ng-container>
     </ng-container>
   </div>

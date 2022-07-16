@@ -26,7 +26,7 @@ export class AuthenticationMiddleware implements Middleware {
             const headers = context.init.headers || {} as any;
             var token = this.auth.getTokenPair()?.jwt as Jwt;
 
-            if (token.expiresIn(minutesToMilliseconds(1))) {
+            if (token.isExpired()) {
                 try {
                     const newPair = await this.auth.refresh();
                     token = newPair.jwt;

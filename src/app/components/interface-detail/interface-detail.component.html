@@ -1,6 +1,6 @@
 <form *ngIf="form" class="show-validation" [formGroup]="form">
   <div class="mb-3 row">
-    <label class="col-sm-2 col-form-label" for="iface-topic">Topic</label>
+    <label class="col-sm-2 col-form-label" for="iface-topic">MQTT Topic</label>
     <div class="col-sm-10">
       <input class="form-control" id="iface-topic" type="text" formControlName="topic">
       <app-form-error-list [control]="form.controls.topic"></app-form-error-list>
@@ -11,7 +11,7 @@
     <label class="col-sm-2 col-form-label" for="iface-kind">Type</label>
     <div class="col-sm-10">
       <select formControlName="kind" class="form-select">
-        <option *ngFor="let kind of listKinds()" value="{{kind[1]}}">{{kind[0]}}</option>
+        <option *ngFor="let kind of listKinds()" value="{{kind[1]}}">MQTT {{kind[0]}}</option>
       </select>
       <app-form-error-list [control]="form.controls.topic"></app-form-error-list>
     </div>

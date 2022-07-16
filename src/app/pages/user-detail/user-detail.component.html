@@ -3,10 +3,10 @@
     <h1 class="card-title">User detail</h1>
     <h6 class="card-subtitle mb-2 text-muted">Currently logged in as {{tokens.jwt.getSubject()}}</h6>
     <div>
-      Time left to expiration: <b>{{ timeLeft.toString() }}</b>
+      <span class="d-none"> Time left to expiration: <b>{{ timeLeft.toString() }}</b> </span>
       <button class="btn btn-outline-primary ms-3" (click)="clickLogout()">Logout</button>
     </div>
-    <div>
+    <div class="d-none">
       Tokens:
       <pre>{{ tokens | json }}</pre>
     </div>

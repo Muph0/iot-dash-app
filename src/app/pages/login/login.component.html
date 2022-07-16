@@ -23,7 +23,7 @@
             <label for="login-password" class="form-label">Password</label>
             <input type="password" class="form-control" id="login-password" [formControl]="ctrlPassword">
             <small *ngIf="ctrlPassword.errors?.required && ctrlPassword.touched" class="text-danger">
-              Username is required
+              Password is required
             </small>
           </div>
           <div class="mb-3">

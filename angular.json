@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../iot-dash-server/www/app",
+            "outputPath": "./dist",
             "index": "src/index.html",
             "sourceMap": true,
             "main": "src/main.ts",

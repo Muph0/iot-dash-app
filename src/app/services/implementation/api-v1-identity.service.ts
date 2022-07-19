@@ -56,10 +56,10 @@ export class ApiV1IdentityService implements IIdentityService {
         return this.identity.value;
     }
 
-    public async login(email: string, password: string): Promise<TokenPair> {
+    public async login(username: string, password: string): Promise<TokenPair> {
 
         try {
-            const authResult = await this.api.login({ userLoginRequest: { email, password } });
+            const authResult = await this.api.login({ userLoginRequest: { username, password } });
 
             assert(authResult.success);
             assert(authResult.token);

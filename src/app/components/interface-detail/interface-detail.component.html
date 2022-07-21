@@ -13,7 +13,7 @@
       <select formControlName="kind" class="form-select">
         <option *ngFor="let kind of listKinds()" value="{{kind[1]}}">MQTT {{kind[0]}}</option>
       </select>
-      <app-form-error-list [control]="form.controls.topic"></app-form-error-list>
+      <app-form-error-list [control]="form.controls.kind"></app-form-error-list>
     </div>
   </div>
 

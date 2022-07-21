@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { assert } from 'src/app/utils';
 import { Observable, Subscription } from 'rxjs';
-import { StatusService } from 'src/app/services/alert.service';
+import { StatusService } from 'src/app/services/status.service';
 import { IIdentityService } from 'src/app/services/identity.service';
 import { AuthResponse } from 'src/contract/backend-v1';
 

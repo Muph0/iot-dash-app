@@ -5,9 +5,9 @@ import { IIdentityService } from '../identity.service';
 
 import { AuthResponse, IdentityApi } from 'src/contract/backend-v1';
 import { ApiV1ServiceProvider } from '../api-v1-provider.service';
-import { StatusService } from '../alert.service';
+import { StatusService } from '../status.service';
 import { map } from 'rxjs/operators';
-import { StorageService } from '../persistency.service';
+import { PersistencyService } from '../persistency.service';
 import { assert } from '../../utils/assert';
 
 const tokenPairStoreName = 'login';
@@ -27,7 +27,7 @@ export class ApiV1IdentityService implements IIdentityService {
     constructor(
         apiProvider: ApiV1ServiceProvider,
         private readonly status: StatusService,
-        private readonly storage: StorageService,
+        private readonly storage: PersistencyService,
     ) {
         this.api = apiProvider.getIdentityApi();
 

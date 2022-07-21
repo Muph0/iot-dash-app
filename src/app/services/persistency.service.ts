@@ -5,7 +5,7 @@ import { assert } from "../utils/assert";
 @Injectable({
     providedIn: 'root'
 })
-export class StorageService {
+export class PersistencyService {
 
     public hasKey(key: string): boolean {
         return localStorage.getItem(key) !== null;

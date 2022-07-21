@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable, Subject } from "rxjs";
 import { DashCardInfo, PersistentCard } from "../domain";
 import { InterfaceService } from "./interface.service";
-import { StorageService } from "./persistency.service";
+import { PersistencyService } from "./persistency.service";
 
 const STATE_KEY = 'dashboard';
 
@@ -24,7 +24,7 @@ export class DashboardService {
     get onRemove() { return this.onRemoveEvent.asObservable(); }
 
     constructor(
-        private readonly storage: StorageService,
+        private readonly storage: PersistencyService,
         private readonly ifdb: InterfaceService,
     ) {
         if (storage.hasKey(STATE_KEY)) {

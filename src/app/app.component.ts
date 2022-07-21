@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 //import { Toast } from 'bootstrap';
 import { AlertMessage } from './domain/alert-message';
-import { StatusService } from './services/alert.service';
+import { StatusService } from './services/status.service';
 
 import { Collapse, Tooltip } from 'bootstrap';
 

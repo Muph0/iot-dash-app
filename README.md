@@ -16,6 +16,11 @@ npm install             # get all dependices
 npm run oapi-gen-v1     # generate HTTP client for the backend API
 ```
 
+> **NOTE:**
+>
+> Because of a bug in openapi generator, after generating,
+> replace runtime.ts with runtime.hotfix.ts
+
 You can then run the app with angular-cli.
 ```
 npx ng serve

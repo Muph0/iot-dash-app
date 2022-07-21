@@ -1,5 +1,6 @@
 import { Injectable, Injector } from "@angular/core";
 import { Configuration, IdentityApi, InterfaceApi } from "src/contract/backend-v1";
+import { environment } from "src/environments/environment";
 import { AuthenticationMiddleware } from "../middleware/authentication.mw";
 import { IIdentityService } from "./identity.service";
 
@@ -19,9 +20,10 @@ export class ApiV1ServiceProvider {
     public getConfig(): Configuration {
         if (!this.configuration) {
             this.configuration = new Configuration({
+                basePath: environment.backendBasePath,
                 middleware: [
                     this.injector.get(AuthenticationMiddleware)
-                ]
+                ],
             });
         }
 
